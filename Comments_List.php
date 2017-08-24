@@ -35,6 +35,6 @@ abstract class Comments_List extends MethodQueryCards
 	
 	public function execute()
 	{
-		return Response::make($this->object->renderCard())->add(parent::execute());
+		return $this->object->renderCard()->add(parent::execute());
 	}
 }
