@@ -4,6 +4,7 @@ namespace GDO\Comment;
 use GDO\DB\GDO;
 use GDO\Table\MethodQueryCards;
 use GDO\Util\Common;
+use GDO\Template\Response;
 
 abstract class Comments_List extends MethodQueryCards
 {
@@ -34,6 +35,6 @@ abstract class Comments_List extends MethodQueryCards
 	
 	public function execute()
 	{
-		return $this->object->renderCard()->add(parent::execute());
+		return Response::make($this->object->renderCard())->add(parent::execute());
 	}
 }
