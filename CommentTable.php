@@ -3,7 +3,7 @@ namespace GDO\Comment;
 
 use GDO\Core\GDOError;
 use GDO\DB\GDO;
-use GDO\DB\GDO_Object;
+use GDO\DB\GDT_Object;
 use GDO\User\User;
 
 class CommentTable extends GDO
@@ -27,8 +27,8 @@ class CommentTable extends GDO
 	public function gdoColumns()
 	{
 		return array(
-			GDO_Object::make('comment_id')->primary()->table(Comment::table()),
-			GDO_Object::make('comment_object')->primary()->table($this->gdoCommentedObjectTable()),
+			GDT_Object::make('comment_id')->primary()->table(Comment::table()),
+			GDT_Object::make('comment_object')->primary()->table($this->gdoCommentedObjectTable()),
 		);
 	}
 	

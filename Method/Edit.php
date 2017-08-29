@@ -3,9 +3,9 @@ namespace GDO\Comment\Method;
 
 use GDO\Comment\Comment;
 use GDO\Core\GDOError;
-use GDO\Form\GDO_AntiCSRF;
-use GDO\Form\GDO_Form;
-use GDO\Form\GDO_Submit;
+use GDO\Form\GDT_AntiCSRF;
+use GDO\Form\GDT_Form;
+use GDO\Form\GDT_Submit;
 use GDO\Form\MethodForm;
 use GDO\User\User;
 use GDO\Util\Common;
@@ -15,8 +15,8 @@ use GDO\Util\Common;
  * @author gizmore
  * @see Comments_List
  * @see Comments_Write
- * @see GDO_Message
- * @see GDO_File
+ * @see GDT_Message
+ * @see GDT_File
  */
 final class Edit extends MethodForm
 {
@@ -42,26 +42,26 @@ final class Edit extends MethodForm
 		return parent::execute()->add($this->comment->renderCard());
 	}
 	
-	public function createForm(GDO_Form $form)
+	public function createForm(GDT_Form $form)
 	{
 		$form->addFields(array(
 // 			$this->comment->gdoColumn('comment_title'),
 			$this->comment->gdoColumn('comment_message'),
 			$this->comment->gdoColumn('comment_file'),
-			GDO_AntiCSRF::make(),
-			GDO_Submit::make(),
-			GDO_Submit::make('delete'),
+			GDT_AntiCSRF::make(),
+			GDT_Submit::make(),
+			GDT_Submit::make('delete'),
 		));
 		$form->withGDOValuesFrom($this->comment);
 	}
 	
-	public function formValidated(GDO_Form $form)
+	public function formValidated(GDT_Form $form)
 	{
 		$this->comment->saveVars($form->getFormData());
 		return $this->message('msg_comment_edited');
 	}
 	
-	public function onSubmit_delete(GDO_Form $form)
+	public function onSubmit_delete(GDT_Form $form)
 	{
 		if ($file = $this->comment->getFile())
 		{

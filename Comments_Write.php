@@ -3,9 +3,9 @@ namespace GDO\Comment;
 
 use GDO\Core\Website;
 use GDO\DB\GDO;
-use GDO\Form\GDO_AntiCSRF;
-use GDO\Form\GDO_Form;
-use GDO\Form\GDO_Submit;
+use GDO\Form\GDT_AntiCSRF;
+use GDO\Form\GDT_Form;
+use GDO\Form\GDT_Submit;
 use GDO\Form\MethodForm;
 use GDO\User\User;
 use GDO\Util\Common;
@@ -29,7 +29,7 @@ abstract class Comments_Write extends MethodForm
 	 */
 	protected $oldComment;
 	
-	public function createForm(GDO_Form $form)
+	public function createForm(GDT_Form $form)
 	{
 		$gdo = Comment::table();
 // 		$form->addField($gdo->gdoColumn('comment_title'));
@@ -39,8 +39,8 @@ abstract class Comments_Write extends MethodForm
 			$form->addField($gdo->gdoColumn('comment_file'));
 		}
 		$form->addFields(array(
-			GDO_Submit::make(),
-			GDO_AntiCSRF::make(),
+			GDT_Submit::make(),
+			GDT_AntiCSRF::make(),
 		));
 		
 		if (1 === $this->gdoCommentsTable()->gdoMaxComments(User::current()))
@@ -69,7 +69,7 @@ abstract class Comments_Write extends MethodForm
 		return $this->message('msg_comment_added');
 	}
 	
-	public function formValidated(GDO_Form $form)
+	public function formValidated(GDT_Form $form)
 	{
 	    if ($this->oldComment)
 	    {

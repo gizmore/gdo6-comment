@@ -2,19 +2,19 @@
 namespace GDO\Comment;
 
 use GDO\DB\GDO;
-use GDO\DB\GDO_AutoInc;
-use GDO\DB\GDO_CreatedAt;
-use GDO\DB\GDO_CreatedBy;
-use GDO\DB\GDO_DeletedAt;
-use GDO\DB\GDO_DeletedBy;
-use GDO\DB\GDO_EditedAt;
-use GDO\DB\GDO_EditedBy;
+use GDO\DB\GDT_AutoInc;
+use GDO\DB\GDT_CreatedAt;
+use GDO\DB\GDT_CreatedBy;
+use GDO\DB\GDT_DeletedAt;
+use GDO\DB\GDT_DeletedBy;
+use GDO\DB\GDT_EditedAt;
+use GDO\DB\GDT_EditedBy;
 use GDO\File\File;
-use GDO\File\GDO_File;
-use GDO\Template\GDO_Template;
-use GDO\Type\GDO_Message;
+use GDO\File\GDT_File;
+use GDO\Template\GDT_Template;
+use GDO\Type\GDT_Message;
 use GDO\User\User;
-use GDO\Vote\GDO_LikeCount;
+use GDO\Vote\GDT_LikeCount;
 use GDO\Vote\WithLikes;
 
 final class Comment extends GDO
@@ -25,17 +25,17 @@ final class Comment extends GDO
 	public function gdoColumns()
 	{
 		return array(
-			GDO_AutoInc::make('comment_id'),
-// 			GDO_String::make('comment_title')->notNull(),
-			GDO_Message::make('comment_message')->notNull(),
-			GDO_File::make('comment_file'),
-		    GDO_LikeCount::make('comment_likes'),
-			GDO_CreatedAt::make('comment_created'),
-			GDO_CreatedBy::make('comment_creator'),
-			GDO_EditedAt::make('comment_edited'),
-			GDO_EditedBy::make('comment_editor'),
-			GDO_DeletedAt::make('comment_deleted'),
-			GDO_DeletedBy::make('comment_deletor'),
+			GDT_AutoInc::make('comment_id'),
+// 			GDT_String::make('comment_title')->notNull(),
+			GDT_Message::make('comment_message')->notNull(),
+			GDT_File::make('comment_file'),
+		    GDT_LikeCount::make('comment_likes'),
+			GDT_CreatedAt::make('comment_created'),
+			GDT_CreatedBy::make('comment_creator'),
+			GDT_EditedAt::make('comment_edited'),
+			GDT_EditedBy::make('comment_editor'),
+			GDT_DeletedAt::make('comment_deleted'),
+			GDT_DeletedBy::make('comment_deletor'),
 		);		
 	}
 	
@@ -60,7 +60,7 @@ final class Comment extends GDO
 	
 	public function renderCard()
 	{
-	    return GDO_Template::responsePHP('Comment', 'card/comment.php', ['gdo' => $this]);
+	    return GDT_Template::responsePHP('Comment', 'card/comment.php', ['gdo' => $this]);
 	}
 	
 	public function canEdit(User $user)
