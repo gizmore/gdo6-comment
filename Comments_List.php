@@ -4,12 +4,11 @@ namespace GDO\Comment;
 use GDO\DB\GDO;
 use GDO\Table\MethodQueryCards;
 use GDO\Util\Common;
-use GDO\Template\Response;
 
 abstract class Comments_List extends MethodQueryCards
 {
 	/**
-	 * @return CommentTable
+	 * @return GDO_CommentTable
 	 */
 	public abstract function gdoCommentsTable();
 	public function gdoTable() { return $this->gdoCommentsTable(); }
@@ -28,9 +27,9 @@ abstract class Comments_List extends MethodQueryCards
 	
 	public function gdoQuery()
 	{
-		$query = $this->gdoTable()->select('gwf_comment.*')->where("comment_object=".$this->object->getID());
+		$query = $this->gdoTable()->select('gdo_comment.*')->where("comment_object=".$this->object->getID());
 		$query->joinObject('comment_id');
-		return $query->fetchTable(Comment::table());
+		return $query->fetchTable(GDO_Comment::table());
 	}
 	
 	public function execute()

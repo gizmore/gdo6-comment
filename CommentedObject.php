@@ -2,7 +2,7 @@
 namespace GDO\Comment;
 
 use GDO\DB\Query;
-use GDO\User\User;
+use GDO\User\GDO_User;
 /**
  * This trait adds utilities for a commented object.
  * To make an object commented, follow these steps:
@@ -28,7 +28,7 @@ trait CommentedObject
     ### Additions needed in your object :(
 //     public function gdoCommentTable() { return LUP_RoomComments::table(); } # Really abstract
 //     public function gdoCommentsEnabled() { return true; } # default true would be ok
-//     public function gdoCanComment(User $user) { return true; } default true would be ok
+//     public function gdoCanComment(GDO_User $user) { return true; } default true would be ok
     ##########################################
     /**
      * Get the number of comments
@@ -46,7 +46,7 @@ trait CommentedObject
 	public function queryCountComments()
 	{
 		$commentTable = $this->gdoCommentTable();
-		$commentTable instanceof CommentTable;
+		$commentTable instanceof GDO_CommentTable;
 		return $commentTable->countWhere('comment_object='.$this->getID());
 	}
 	
@@ -56,29 +56,29 @@ trait CommentedObject
 	 */
 	public function queryComments()
 	{
-		$comments = Comment::table();
+	    $comments = GDO_Comment::table();
 		$commentTable = $this->gdoCommentTable();
-		$commentTable instanceof CommentTable;
-		return $commentTable->select('gwf_comment.*')->fetchTable(Comment::table())->joinObject('comment_id')->where("comment_object=".$this->getID());
+		$commentTable instanceof GDO_CommentTable;
+		return $commentTable->select('gdo_comment.*')->fetchTable(GDO_Comment::table())->joinObject('comment_id')->where("comment_object=".$this->getID());
 	}
 	
 	/**
 	 * Build query for a single comment for a given user.
-	 * @param User $user
+	 * @param GDO_User $user
 	 * @return Query
 	 */
-	public function queryUserComments(User $user=null)
+	public function queryUserComments(GDO_User $user=null)
 	{
-	    $user = $user ? $user : User::current();
+	    $user = $user ? $user : GDO_User::current();
 	    return $this->queryComments()->where("comment_creator={$user->getID()}");
 	}
 	
 	/**
 	 * In case you only allow one comment per user and object, this gets the comment for a user and object
-	 * @param User $user
-	 * @return Comment
+	 * @param GDO_User $user
+	 * @return GDO_Comment
 	 */
-	public function getUserComment(User $user=null)
+	public function getUserComment(GDO_User $user=null)
 	{
 	    return $this->queryUserComments($user)->first()->exec()->fetchObject();
 	}

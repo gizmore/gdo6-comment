@@ -1,10 +1,10 @@
 <?php
-use GDO\Comment\Comment;
+use GDO\Comment\GDO_Comment;
 use GDO\UI\GDT_EditButton;
 use GDO\UI\GDT_Link;
-use GDO\User\User;
-$gdo instanceof Comment;
-$user = User::current();
+use GDO\User\GDO_User;
+$gdo instanceof GDO_Comment;
+$user = GDO_User::current();
 ?>
 <md-card layout-fill flex>
   <md-card-title>

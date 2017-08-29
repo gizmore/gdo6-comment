@@ -9,18 +9,18 @@ use GDO\DB\GDT_DeletedAt;
 use GDO\DB\GDT_DeletedBy;
 use GDO\DB\GDT_EditedAt;
 use GDO\DB\GDT_EditedBy;
-use GDO\File\File;
+use GDO\File\GDO_File;
 use GDO\File\GDT_File;
 use GDO\Template\GDT_Template;
 use GDO\Type\GDT_Message;
-use GDO\User\User;
+use GDO\User\GDO_User;
 use GDO\Vote\GDT_LikeCount;
 use GDO\Vote\WithLikes;
 
-final class Comment extends GDO
+final class GDO_Comment extends GDO
 {
 	use WithLikes;
-	public function gdoLikeTable() { return CommentLike::table(); }
+	public function gdoLikeTable() { return GDO_CommentLike::table(); }
 	
 	public function gdoColumns()
 	{
@@ -42,7 +42,7 @@ final class Comment extends GDO
 	public function getID() { return $this->getVar('comment_id'); }
 	
 	/**
-	 * @return File
+	 * @return GDO_File
 	 */
 	public function getFile() { return $this->getValue('comment_file'); }
 	public function hasFile() { return $this->getFileID() !== null; }
@@ -63,7 +63,7 @@ final class Comment extends GDO
 	    return GDT_Template::responsePHP('Comment', 'card/comment.php', ['gdo' => $this]);
 	}
 	
-	public function canEdit(User $user)
+	public function canEdit(GDO_User $user)
 	{
 		return $user->hasPermission('staff');
 	}

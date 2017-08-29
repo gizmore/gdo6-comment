@@ -1,13 +1,13 @@
 <?php
 namespace GDO\Comment\Method;
 
-use GDO\Comment\Comment;
+use GDO\Comment\GDO_Comment;
 use GDO\Core\GDOError;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\Form\GDT_Form;
 use GDO\Form\GDT_Submit;
 use GDO\Form\MethodForm;
-use GDO\User\User;
+use GDO\User\GDO_User;
 use GDO\Util\Common;
 /**
  * Edit a comment.
@@ -23,14 +23,14 @@ final class Edit extends MethodForm
 	public function getPermission() { return 'staff'; }
 	
 	/**
-	 * @var Comment
+	 * @var GDO_Comment
 	 */
 	private $comment;
 	
 	public function init()
 	{
-		$user = User::current();
-		$this->comment = Comment::table()->find(Common::getRequestString('id'));
+		$user = GDO_User::current();
+		$this->comment = GDO_Comment::table()->find(Common::getRequestString('id'));
 		if (!$this->comment->canEdit($user))
 		{
 			throw new GDOError('err_no_permission');
