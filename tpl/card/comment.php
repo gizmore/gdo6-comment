@@ -6,7 +6,7 @@ use GDO\User\User;
 $gdo instanceof Comment;
 $user = User::current();
 ?>
-<md-card>
+<md-card layout-fill flex>
   <md-card-title>
     <md-card-title-text>
       <span class="md-headline">
