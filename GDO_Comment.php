@@ -48,7 +48,7 @@ final class GDO_Comment extends GDO
 	public function hasFile() { return $this->getFileID() !== null; }
 	public function getFileID() { return $this->getVar('comment_file'); }
 	/**
-	 * @return User
+	 * @return GDO_User
 	 */
 	public function getCreator() { return $this->getValue('comment_creator'); }
 	public function getCreatorID() { return $this->getVar('comment_creator'); }
