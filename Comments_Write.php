@@ -13,7 +13,7 @@ use GDO\Util\Common;
 abstract class Comments_Write extends MethodForm
 {
 	/**
-	 * @return CommentTable
+	 * @return GDO_CommentTable
 	 */
 	public abstract function gdoCommentsTable();
 

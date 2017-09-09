@@ -16,7 +16,7 @@ class GDO_CommentTable extends GDO
 	public function gdoEnabled() { return true; }
 	public function gdoAllowTitle() { return true; }
 	public function gdoAllowFiles() { return true; }
-	public function gdoMaxComments(GDO_User $user) { return 1; }
+	public function gdoMaxComments(GDO_User $user) { return 100; }
 	###########
 	### GDO ###
 	###########
