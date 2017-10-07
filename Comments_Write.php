@@ -2,7 +2,7 @@
 namespace GDO\Comment;
 
 use GDO\Core\Website;
-use GDO\DB\GDO;
+use GDO\Core\GDO;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\Form\GDT_Form;
 use GDO\Form\GDT_Submit;

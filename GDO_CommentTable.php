@@ -2,7 +2,7 @@
 namespace GDO\Comment;
 
 use GDO\Core\GDOError;
-use GDO\DB\GDO;
+use GDO\Core\GDO;
 use GDO\DB\GDT_Object;
 use GDO\User\GDO_User;
 

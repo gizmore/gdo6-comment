@@ -1,7 +1,7 @@
 <?php
 namespace GDO\Comment;
 
-use GDO\DB\GDO;
+use GDO\Core\GDO;
 use GDO\Table\MethodQueryCards;
 use GDO\Util\Common;
 
