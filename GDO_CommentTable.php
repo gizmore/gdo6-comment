@@ -37,7 +37,7 @@ class GDO_CommentTable extends GDO
 	 * @param string $className
 	 * @return GDO_CommentTable
 	 */
-	public static function getInstance(string $className)
+	public static function getInstance($className)
 	{
 		$table = GDO::tableFor($className);
 		if (!($table instanceof GDO_CommentTable))
