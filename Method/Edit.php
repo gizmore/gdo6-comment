@@ -39,7 +39,7 @@ final class Edit extends MethodForm
 	
 	public function execute()
 	{
-		return parent::execute()->add($this->comment->renderCard());
+		return parent::execute()->add($this->comment->responseCard());
 	}
 	
 	public function createForm(GDT_Form $form)

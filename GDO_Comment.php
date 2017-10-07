@@ -60,7 +60,7 @@ final class GDO_Comment extends GDO
 	
 	public function renderCard()
 	{
-	    return GDT_Template::responsePHP('Comment', 'card/comment.php', ['gdo' => $this]);
+	    return GDT_Template::php('Comment', 'card/comment.php', ['gdo' => $this]);
 	}
 	
 	public function canEdit(GDO_User $user)
