@@ -9,6 +9,7 @@ use GDO\Form\GDT_Submit;
 use GDO\Form\MethodForm;
 use GDO\User\GDO_User;
 use GDO\Util\Common;
+use GDO\Core\Application;
 
 abstract class Comments_Write extends MethodForm
 {
@@ -83,6 +84,12 @@ abstract class Comments_Write extends MethodForm
     			'comment_id' => $comment->getID(),
     		))->insert();
 	    }
-		return $this->successMessage()->add(Website::redirectMessage($this->hrefList()));
+	    
+	    $response = $this->successMessage();
+	    if (!Application::instance()->isAjax())
+	    {
+	    	$response->add(Website::redirectMessage($this->hrefList()));
+	    }
+		return $response;
 	}
 }
