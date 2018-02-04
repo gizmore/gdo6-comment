@@ -2,6 +2,7 @@
 namespace GDO\Comment;
 
 use GDO\Vote\GDO_LikeTable;
+
 /**
  * It is possible to like comments.
  * @author gizmore

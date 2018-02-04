@@ -4,7 +4,6 @@ namespace GDO\Comment;
 use GDO\Core\GDO;
 use GDO\Table\MethodQueryCards;
 use GDO\Util\Common;
-use GDO\Core\GDT_Response;
 
 abstract class Comments_List extends MethodQueryCards
 {
