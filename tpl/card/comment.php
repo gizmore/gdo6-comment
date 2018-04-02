@@ -9,7 +9,8 @@ $user = GDO_User::current();
 
 $card = GDT_Card::make()->gdo($gdo);
 $card->withCreator();
-$card->withCreated();
+$card->title($gdo->getCreator()->displayNameLabel());
+$card->subtitle(tt($gdo->getCreateDate()));
 
 $card->addFields(array(
 	$gdo->gdoColumn('comment_message'),

@@ -7,4 +7,6 @@ return array(
 'msg_comment_added' => 'Your comment has been added.',
 ####
 'ft_comments_edit' => '[%s] Edit Comment',
+####
+'list_comments' => '[%s] %s Comments',
 );

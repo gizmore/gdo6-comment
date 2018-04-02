@@ -4,6 +4,7 @@ namespace GDO\Comment;
 use GDO\Core\GDO;
 use GDO\Table\MethodQueryCards;
 use GDO\Util\Common;
+use GDO\Table\GDT_List;
 
 abstract class Comments_List extends MethodQueryCards
 {
@@ -36,4 +37,11 @@ abstract class Comments_List extends MethodQueryCards
 	{
 	    return $this->object->responseCard()->add(parent::execute());
 	}
+
+	public function gdoDecorateList(GDT_List $list)
+	{
+		$count = $this->object->getCommentCount();
+		$list->title(t('list_comments', [sitename(), $count]));
+	}
+
 }
