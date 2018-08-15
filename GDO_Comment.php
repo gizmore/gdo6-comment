@@ -29,7 +29,7 @@ final class GDO_Comment extends GDO
 // 			GDT_String::make('comment_title')->notNull(),
 			GDT_Message::make('comment_message')->notNull(),
 			GDT_File::make('comment_file'),
-		    GDT_LikeCount::make('comment_likes'),
+			GDT_LikeCount::make('comment_likes'),
 			GDT_CreatedAt::make('comment_created'),
 			GDT_CreatedBy::make('comment_creator'),
 			GDT_EditedAt::make('comment_edited'),
@@ -60,7 +60,7 @@ final class GDO_Comment extends GDO
 	
 	public function renderCard()
 	{
-	    return GDT_Template::php('Comment', 'card/comment.php', ['gdo' => $this]);
+		return GDT_Template::php('Comment', 'card/comment.php', ['gdo' => $this]);
 	}
 	
 	public function canEdit(GDO_User $user)

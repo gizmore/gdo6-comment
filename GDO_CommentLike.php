@@ -12,5 +12,5 @@ use GDO\Vote\GDO_LikeTable;
  */
 final class GDO_CommentLike extends GDO_LikeTable
 {
-    public function gdoLikeObjectTable() { return GDO_Comment::table(); }
+	public function gdoLikeObjectTable() { return GDO_Comment::table(); }
 }

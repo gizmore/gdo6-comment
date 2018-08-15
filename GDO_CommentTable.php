@@ -27,7 +27,7 @@ class GDO_CommentTable extends GDO
 	public function gdoColumns()
 	{
 		return array(
-		    GDT_Object::make('comment_id')->primary()->table(GDO_Comment::table()),
+			GDT_Object::make('comment_id')->primary()->table(GDO_Comment::table()),
 			GDT_Object::make('comment_object')->primary()->table($this->gdoCommentedObjectTable()),
 		);
 	}

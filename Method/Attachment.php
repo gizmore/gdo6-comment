@@ -11,6 +11,6 @@ final class Attachment extends Method
 {
 	public function execute()
 	{
-	    return GetFile::make()->execute();
+		return GetFile::make()->execute();
 	}
 }
