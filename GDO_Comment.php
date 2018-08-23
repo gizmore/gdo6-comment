@@ -16,7 +16,21 @@ use GDO\UI\GDT_Message;
 use GDO\User\GDO_User;
 use GDO\Vote\GDT_LikeCount;
 use GDO\Vote\WithLikes;
+use GDO\DB\GDT_Checkbox;
+use GDO\Date\GDT_DateTime;
+use GDO\User\GDT_User;
 
+/**
+ * A comment.
+ * Comments can be attached to objects by use CommentedObject.
+ * Comments can be liked.
+ * 
+ * @see CommentedObject
+ * 
+ * @author gizmore@wechall.net
+ * @version 6.08
+ * @since 6.00
+ */
 final class GDO_Comment extends GDO
 {
 	use WithLikes;
@@ -30,8 +44,11 @@ final class GDO_Comment extends GDO
 			GDT_Message::make('comment_message')->notNull(),
 			GDT_File::make('comment_file'),
 			GDT_LikeCount::make('comment_likes'),
+			GDT_Checkbox::make('comment_top')->editable(false)->initial('0'),
 			GDT_CreatedAt::make('comment_created'),
 			GDT_CreatedBy::make('comment_creator'),
+			GDT_DateTime::make('comment_approved'),
+			GDT_User::make('comment_approvor')->label('comment_approvor'),
 			GDT_EditedAt::make('comment_edited'),
 			GDT_EditedBy::make('comment_editor'),
 			GDT_DeletedAt::make('comment_deleted'),
@@ -58,6 +75,8 @@ final class GDO_Comment extends GDO
 	public function getMessage() { return $this->getVar('comment_message');  }
 	public function displayMessage() { return $this->gdoColumn('comment_message')->renderCell();  }
 	
+	public function isApproved() { return $this->getVar('comment_approved') !== null; }
+	
 	public function renderCard()
 	{
 		return GDT_Template::php('Comment', 'card/comment.php', ['gdo' => $this]);
@@ -71,6 +90,21 @@ final class GDO_Comment extends GDO
 	public function hrefEdit()
 	{
 		return href('Comment', 'Edit', '&id='.$this->getID());
+	}
+	
+	public function href_edit()
+	{
+		return $this->hrefEdit();
+	}
+	
+	public function urlApprove()
+	{
+		return url('Comment', 'Approve', '&id='.$this->getID().'&token='.$this->gdoHashcode());
+	}
+	
+	public function urlDelete()
+	{
+		return url('Comment', 'Delete', '&id='.$this->getID().'&token='.$this->gdoHashcode());
 	}
 	
 }

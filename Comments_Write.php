@@ -10,6 +10,9 @@ use GDO\Form\MethodForm;
 use GDO\User\GDO_User;
 use GDO\Util\Common;
 use GDO\Core\Application;
+use GDO\Date\Time;
+use GDO\Mail\Mail;
+use GDO\Core\GDT_Template;
 
 abstract class Comments_Write extends MethodForm
 {
@@ -78,11 +81,28 @@ abstract class Comments_Write extends MethodForm
 		}
 		else
 		{
-			$comment = GDO_Comment::blank($form->getFormData())->insert();
+			# Insert comment
+			$comment = GDO_Comment::blank($form->getFormData());
+			if (!Module_Comment::instance()->cfgApproval())
+			{
+				$comment->setVars(array(
+					'comment_approved' => Time::getDate(),
+					'comment_approver' => GDO_User::system()->getID(),
+				));
+			}
+			$comment->insert();
+			
+			# Relation entry
 			$entry = $this->gdoCommentsTable()->blank(array(
 				'comment_object' => $this->object->getID(),
 				'comment_id' => $comment->getID(),
-			))->insert();
+			));
+			$entry->insert();
+			
+			if (Module_Comment::instance()->cfgEmail())
+			{
+				$this->sendEmail($comment);
+			}
 		}
 		
 		$response = $this->successMessage();
@@ -91,5 +111,28 @@ abstract class Comments_Write extends MethodForm
 			$response->add(Website::redirectMessage($this->hrefList()));
 		}
 		return $response;
+	}
+	
+	private function sendEmail(GDO_Comment $comment)
+	{
+		foreach (GDO_User::staff() as $user)
+		{
+			$this->sendEmailTo($user, $comment);
+		}
+	}
+	
+	private function sendEmailTo(GDO_User $user, GDO_Comment $comment)
+	{
+		$mail = new Mail();
+		$mail->setSubject(tusr($user, 'mail_new_comment_title', [sitename()]));
+		$tVars = array(
+			'user' => $user,
+			'comment' => $comment,
+			'href_approve' => $comment->urlApprove(),
+			'href_delete' => $comment->urlDelete(),
+		);
+		$mail->setBody(GDT_Template::phpUser($user, 'Comment', 'mail/new_comment', $tVars));
+		$mail->setSender(GWF_BOT_EMAIL);
+		$mail->sendToUser($user);
 	}
 }

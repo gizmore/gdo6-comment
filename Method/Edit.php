@@ -9,6 +9,8 @@ use GDO\Form\GDT_Submit;
 use GDO\Form\MethodForm;
 use GDO\User\GDO_User;
 use GDO\Util\Common;
+use GDO\Date\Time;
+use GDO\Core\Website;
 /**
  * Edit a comment.
  * 
@@ -48,10 +50,17 @@ final class Edit extends MethodForm
 // 			$this->comment->gdoColumn('comment_title'),
 			$this->comment->gdoColumn('comment_message'),
 			$this->comment->gdoColumn('comment_file'),
+			$this->comment->gdoColumn('comment_top'),
 			GDT_AntiCSRF::make(),
 			GDT_Submit::make(),
 			GDT_Submit::make('delete'),
 		));
+		
+		if (!$this->comment->isApproved())
+		{
+			$form->addField(GDT_Submit::make('approve'));
+		}
+		
 		$form->withGDOValuesFrom($this->comment);
 	}
 	
@@ -69,5 +78,15 @@ final class Edit extends MethodForm
 		}
 		$this->comment->delete();
 		return $this->message('msg_comment_deleted');
+	}
+	
+	public function onSubmit_approve(GDT_Form $form)
+	{
+		$this->comment->saveVars(array(
+			'comment_approved' => Time::getDate(),
+			'comment_approvor' => GDO_User::current()->getID(),
+		));
+		Website::redirect(href('Comment', 'Admin', 12));
+		return $this->message('msg_comment_approved');
 	}
 }

@@ -56,7 +56,6 @@ trait CommentedObject
 	 */
 	public function queryComments()
 	{
-		$comments = GDO_Comment::table();
 		$commentTable = $this->gdoCommentTable();
 		$commentTable instanceof GDO_CommentTable;
 		return $commentTable->select('gdo_comment.*')->fetchTable(GDO_Comment::table())->joinObject('comment_id')->where("comment_object=".$this->getID());

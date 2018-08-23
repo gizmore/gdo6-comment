@@ -30,6 +30,7 @@ abstract class Comments_List extends MethodQueryCards
 	{
 		$query = $this->gdoTable()->select('gdo_comment.*')->where("comment_object=".$this->object->getID());
 		$query->joinObject('comment_id');
+		$query->where("comment_approved IS NOT NULL");
 		return $query->fetchTable(GDO_Comment::table());
 	}
 	
