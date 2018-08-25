@@ -19,6 +19,7 @@ use GDO\Vote\WithLikes;
 use GDO\DB\GDT_Checkbox;
 use GDO\Date\GDT_DateTime;
 use GDO\User\GDT_User;
+use GDO\Date\GDT_Timestamp;
 
 /**
  * A comment.
