@@ -34,31 +34,47 @@ trait CommentedObject
 	 * Get the number of comments
 	 * @return number
 	 */
-	public function getCommentCount()
+	public function getCommentCount($withDeleted=false)
 	{
-		return $this->queryCountComments();
+		return $this->queryCountComments($withDeleted);
 	}
 	
 	/**
 	 * Query the number of comments.
 	 * @return int
 	 */
-	public function queryCountComments()
+	public function queryCountComments($withDeleted=false)
 	{
 		$commentTable = $this->gdoCommentTable();
 		$commentTable instanceof GDO_CommentTable;
-		return $commentTable->countWhere('comment_object='.$this->getID());
+		$query = $commentTable->select('COUNT(*)')->joinObject('comment_id');
+		$query->where("comment_object={$this->getID()}");
+		if (!$withDeleted)
+		{
+			$query->where("comment_deleted IS NULL");
+		}
+		return $query->exec()->fetchValue();
 	}
 	
 	/**
 	 * Build query for all comments.
 	 * @return Query
 	 */
-	public function queryComments()
+	public function queryComments($withDeleted=false)
 	{
 		$commentTable = $this->gdoCommentTable();
 		$commentTable instanceof GDO_CommentTable;
-		return $commentTable->select('gdo_comment.*')->fetchTable(GDO_Comment::table())->joinObject('comment_id')->where("comment_object=".$this->getID());
+		$query = $commentTable->select('gdo_comment.*')->
+			fetchTable(GDO_Comment::table())->
+			joinObject('comment_id')->
+			where("comment_object=".$this->getID());
+		
+		if (!$withDeleted)
+		{
+			$query->where("comment_deleted IS NULL");
+		}
+			
+		return $query;
 	}
 	
 	/**

@@ -22,8 +22,6 @@ use GDO\Core\Website;
  */
 final class Edit extends MethodForm
 {
-	public function getPermission() { return 'staff'; }
-	
 	/**
 	 * @var GDO_Comment
 	 */
@@ -41,6 +39,8 @@ final class Edit extends MethodForm
 	
 	public function execute()
 	{
+		
+		
 		return parent::execute()->add($this->comment->responseCard());
 	}
 	
@@ -82,10 +82,18 @@ final class Edit extends MethodForm
 	
 	public function onSubmit_approve(GDT_Form $form)
 	{
+		if ($this->comment->isApproved())
+		{
+			return $this->error('err_comment_already_approved');
+		}
+		
 		$this->comment->saveVars(array(
 			'comment_approved' => Time::getDate(),
 			'comment_approvor' => GDO_User::current()->getID(),
 		));
+		
+		Approve::make()->sendEmail($this->comment);
+		
 		Website::redirect(href('Comment', 'Admin', 12));
 		return $this->message('msg_comment_approved');
 	}

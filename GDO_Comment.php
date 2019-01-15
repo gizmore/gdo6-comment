@@ -77,6 +77,7 @@ final class GDO_Comment extends GDO
 	public function displayMessage() { return $this->gdoColumn('comment_message')->renderCell();  }
 	
 	public function isApproved() { return $this->getVar('comment_approved') !== null; }
+	public function isDeleted() { return $this->getVar('comment_deleted') !== null; }
 	
 	public function renderCard()
 	{
@@ -84,6 +85,11 @@ final class GDO_Comment extends GDO
 	}
 	
 	public function canEdit(GDO_User $user)
+	{
+		return $user->hasPermission('staff');
+	}
+	
+	public function canDelete(GDO_User $user)
 	{
 		return $user->hasPermission('staff');
 	}

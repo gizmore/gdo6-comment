@@ -1,5 +1,6 @@
 <?php
 return array(
+'gdo_comment' => 'Comment',
 'link_comments' => '%s comments…',
 'btn_write_comment' => 'Write&nbsp;Comment',
 'commented_at' => 'comment from %s',
