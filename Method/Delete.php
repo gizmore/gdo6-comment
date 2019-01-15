@@ -53,7 +53,7 @@ final class Delete extends Method
 			'user' => $user,
 			'comment' => $comment,
 		);
-		$mail->setBody(GDT_Template::phpUser($user, 'Comment', 'mail/deleted_comment', $tVars));
+		$mail->setBody(GDT_Template::phpUser($user, 'Comment', 'mail/deleted_comment.php', $tVars));
 		$mail->setSender(GWF_BOT_EMAIL);
 		$mail->sendToUser($user);
 	}

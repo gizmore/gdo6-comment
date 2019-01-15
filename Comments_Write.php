@@ -131,7 +131,7 @@ abstract class Comments_Write extends MethodForm
 			'href_approve' => $comment->urlApprove(),
 			'href_delete' => $comment->urlDelete(),
 		);
-		$mail->setBody(GDT_Template::phpUser($user, 'Comment', 'mail/new_comment', $tVars));
+		$mail->setBody(GDT_Template::phpUser($user, 'Comment', 'mail/new_comment.php', $tVars));
 		$mail->setSender(GWF_BOT_EMAIL);
 		$mail->sendToUser($user);
 	}
