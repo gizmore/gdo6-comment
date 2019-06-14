@@ -33,6 +33,11 @@ abstract class Comments_Write extends MethodForm
 	 */
 	protected $oldComment;
 	
+	public function hasPermission(GDO_User $user)
+	{
+		return $this->gdoCommentsTable()->canAddComment($user);
+	}
+	
 	public function createForm(GDT_Form $form)
 	{
 		$gdo = GDO_Comment::table();

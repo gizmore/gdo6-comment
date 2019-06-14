@@ -17,6 +17,11 @@ class GDO_CommentTable extends GDO
 	public function gdoAllowTitle() { return true; }
 	public function gdoAllowFiles() { return true; }
 	public function gdoMaxComments(GDO_User $user) { return 100; }
+	
+	public function canAddComment(GDO_User $user) { return true; }
+	public function canEditComment(GDO_Comment $comment, GDO_User $user) { return $comment->canEdit($user); }
+	public function canDeleteComment(GDO_Comment $comment, GDO_User $user) { return $comment->canDelete($user); }
+	
 	###########
 	### GDO ###
 	###########
@@ -27,10 +32,15 @@ class GDO_CommentTable extends GDO
 	public function gdoColumns()
 	{
 		return array(
-			GDT_Object::make('comment_id')->primary()->table(GDO_Comment::table()),
-			GDT_Object::make('comment_object')->primary()->table($this->gdoCommentedObjectTable()),
+			GDT_Object::make('comment_id')->primary()->table(GDO_Comment::table())->cascade(),
+			GDT_Object::make('comment_object')->primary()->table($this->gdoCommentedObjectTable())->cascade(),
 		);
 	}
+	
+	/**
+	 * @return GDO
+	 */
+	public function getCommentedObject() { return $this->getValue('comment_object'); }
 	
 	### 
 	/**
