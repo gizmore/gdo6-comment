@@ -11,6 +11,9 @@ class GDO_CommentTable extends GDO
 	################
 	### Comments ###
 	################
+	/**
+	 * @return GDO
+	 */
 	public function gdoCommentedObjectTable() {}
 
 	public function gdoEnabled() { return true; }
@@ -28,7 +31,7 @@ class GDO_CommentTable extends GDO
 	/**
 	 * @return GDO
 	 */
-	public function gdoAbstract() { return $this->gdoCommentedObjectTable() === null; }
+	public function gdoAbstract() { return !$this->gdoCommentedObjectTable(); }
 	public function gdoColumns()
 	{
 		return array(
@@ -41,6 +44,18 @@ class GDO_CommentTable extends GDO
 	 * @return GDO
 	 */
 	public function getCommentedObject() { return $this->getValue('comment_object'); }
+	
+	public static function getCommentedObjectByComment(GDO_Comment $comment, $fetchAs=null)
+	{
+		$fetchAs = $fetchAs = null ?
+			self::table()->gdoCommentedObjectTable() :
+			$fetchAs;
+		return self::table()->select()->
+			fetchTable($fetchAs)->
+			joinObject('comment_object')->
+			where("comment_id={$comment->getID()}")->
+			first()->exec()->fetchObject();
+	}
 	
 	### 
 	/**

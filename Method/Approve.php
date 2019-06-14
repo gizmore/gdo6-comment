@@ -7,6 +7,7 @@ use GDO\Util\Common;
 use GDO\Date\Time;
 use GDO\User\GDO_User;
 use GDO\Mail\Mail;
+use GDO\Core\GDT_Hook;
 /**
  * Comment attachment download.
  * @author gizmore
@@ -32,6 +33,8 @@ final class Approve extends Method
 		));
 		
 		$this->sendEmail($comment);
+		
+		GDT_Hook::callWithIPC('CommentApproved', $comment);
 		
 		return $this->message('msg_comment_approved');
 	}

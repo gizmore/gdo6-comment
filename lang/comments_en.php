@@ -8,6 +8,7 @@ return array(
 'msg_comment_added' => 'Your comment has been added.',
 ###########
 'ft_comments_edit' => '[%s] Edit Comment',
+'msg_comment_edited' => 'The comment has been edited.',
 ###########
 'list_comments' => '[%s] %s Comments',
 ###########

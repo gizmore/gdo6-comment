@@ -11,6 +11,8 @@ use GDO\User\GDO_User;
 use GDO\Util\Common;
 use GDO\Date\Time;
 use GDO\Core\Website;
+use GDO\UI\GDT_Redirect;
+use GDO\Core\GDT_Response;
 /**
  * Edit a comment.
  * 
@@ -20,12 +22,12 @@ use GDO\Core\Website;
  * @see GDT_Message
  * @see GDT_File
  */
-final class Edit extends MethodForm
+class Edit extends MethodForm
 {
 	/**
 	 * @var GDO_Comment
 	 */
-	private $comment;
+	protected $comment;
 	
 	public function init()
 	{
@@ -37,11 +39,9 @@ final class Edit extends MethodForm
 		}
 	}
 	
-	public function execute()
+	public function afterExecute()
 	{
-		
-		
-		return parent::execute()->add($this->comment->responseCard());
+		return GDT_Response::makeWithHTML($this->comment->renderCard());
 	}
 	
 	public function createForm(GDT_Form $form)
@@ -67,7 +67,7 @@ final class Edit extends MethodForm
 	public function formValidated(GDT_Form $form)
 	{
 		$this->comment->saveVars($form->getFormData());
-		return $this->message('msg_comment_edited');
+		return $this->message('msg_comment_edited')->add($this->renderPage());
 	}
 	
 	public function onSubmit_delete(GDT_Form $form)
@@ -77,7 +77,12 @@ final class Edit extends MethodForm
 			$file->delete();
 		}
 		$this->comment->delete();
-		return $this->message('msg_comment_deleted');
+		return $this->message('msg_comment_deleted')->add(GDT_Response::makeWith(GDT_Redirect::make()->href($this->hrefBack())));
+	}
+	
+	public function hrefBack()
+	{
+		return Website::hrefBack();
 	}
 	
 	public function onSubmit_approve(GDT_Form $form)
@@ -95,6 +100,6 @@ final class Edit extends MethodForm
 		Approve::make()->sendEmail($this->comment);
 		
 		Website::redirect(href('Comment', 'Admin', 12));
-		return $this->message('msg_comment_approved');
+		return $this->message('msg_comment_approved')->add($this->renderPage());
 	}
 }

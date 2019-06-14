@@ -13,6 +13,7 @@ use GDO\Core\Application;
 use GDO\Date\Time;
 use GDO\Mail\Mail;
 use GDO\Core\GDT_Template;
+use GDO\Core\GDT_Hook;
 
 abstract class Comments_Write extends MethodForm
 {
@@ -88,7 +89,8 @@ abstract class Comments_Write extends MethodForm
 		{
 			# Insert comment
 			$comment = GDO_Comment::blank($form->getFormData());
-			if (!Module_Comment::instance()->cfgApproval())
+			$approval = Module_Comment::instance()->cfgApproval();
+			if (!$approval)
 			{
 				$comment->setVars(array(
 					'comment_approved' => Time::getDate(),
@@ -107,6 +109,12 @@ abstract class Comments_Write extends MethodForm
 			if (Module_Comment::instance()->cfgEmail())
 			{
 				$this->sendEmail($comment);
+			}
+			
+			GDT_Hook::callWithIPC('CommentaAdded', $comment);
+			if (!$approval)
+			{
+				GDT_Hook::callWithIPC('CommentApproved', $comment);
 			}
 		}
 		

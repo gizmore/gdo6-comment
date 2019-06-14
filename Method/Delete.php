@@ -1,5 +1,6 @@
 <?php
 namespace GDO\Comment\Method;
+
 use GDO\Comment\GDO_Comment;
 use GDO\Core\GDT_Template;
 use GDO\Core\Method;
@@ -7,8 +8,8 @@ use GDO\Date\Time;
 use GDO\User\GDO_User;
 use GDO\Util\Common;
 use GDO\Mail\Mail;
-use GDO\DB\GDT_Token;
-use GDO\DB\GDT_Object;
+use GDO\Core\GDT_Hook;
+
 /**
  * @author gizmore
  * @version 6.09
@@ -33,6 +34,8 @@ final class Delete extends Method
 		));
 		
 		$this->sendEmail($comment);
+		
+		GDT_Hook::callWithIPC('CommentDeleted', $comment);
 		
 		return $this->message('msg_comment_deleted');
 	}
