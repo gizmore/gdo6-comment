@@ -7,10 +7,10 @@ return array(
 ###########
 'msg_comment_added' => 'Your comment has been added.',
 ###########
-'ft_comments_edit' => '[%s] Edit Comment',
+'ft_comments_edit' => 'Edit Comment',
 'msg_comment_edited' => 'The comment has been edited.',
 ###########
-'list_comments' => '[%s] %s Comments',
+'list_comments' => '%s Comments',
 ###########
 'mail_new_comment_title' => '[%s] New Comment',
 );
