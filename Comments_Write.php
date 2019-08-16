@@ -106,7 +106,7 @@ abstract class Comments_Write extends MethodForm
 			));
 			$entry->insert();
 			
-			if (Module_Comment::instance()->cfgEmail())
+			if (Module_Comment::instance()->cfgEmail() || $approval)
 			{
 				$this->sendEmail($comment);
 			}

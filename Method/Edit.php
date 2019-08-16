@@ -13,6 +13,7 @@ use GDO\Date\Time;
 use GDO\Core\Website;
 use GDO\UI\GDT_Redirect;
 use GDO\Core\GDT_Response;
+use GDO\Form\GDT_DeleteButton;
 /**
  * Edit a comment.
  * 
@@ -53,7 +54,7 @@ class Edit extends MethodForm
 			$this->comment->gdoColumn('comment_top'),
 			GDT_AntiCSRF::make(),
 			GDT_Submit::make(),
-			GDT_Submit::make('delete'),
+			GDT_DeleteButton::make(),
 		));
 		
 		if (!$this->comment->isApproved())
