@@ -34,16 +34,16 @@ trait CommentedObject
 	 * Get the number of comments
 	 * @return number
 	 */
-	public function getCommentCount($withDeleted=false)
+	public function getCommentCount($withDeleted=false, $approvedOnly=true)
 	{
-		return $this->queryCountComments($withDeleted);
+		return $this->queryCountComments($withDeleted, $approvedOnly);
 	}
 	
 	/**
 	 * Query the number of comments.
 	 * @return int
 	 */
-	public function queryCountComments($withDeleted=false)
+	public function queryCountComments($withDeleted=false, $approvedOnly=true)
 	{
 		$commentTable = $this->gdoCommentTable();
 		$commentTable instanceof GDO_CommentTable;
@@ -53,6 +53,10 @@ trait CommentedObject
 		{
 			$query->where("comment_deleted IS NULL");
 		}
+		if ($approvedOnly)
+		{
+			$query->where("comment_approved IS NOT NULL");
+		}
 		return $query->exec()->fetchValue();
 	}
 	
@@ -60,7 +64,7 @@ trait CommentedObject
 	 * Build query for all comments.
 	 * @return Query
 	 */
-	public function queryComments($withDeleted=false)
+	public function queryComments($withDeleted=false, $approvedOnly=true)
 	{
 		$commentTable = $this->gdoCommentTable();
 		$commentTable instanceof GDO_CommentTable;
@@ -68,12 +72,16 @@ trait CommentedObject
 			fetchTable(GDO_Comment::table())->
 			joinObject('comment_id')->
 			where("comment_object=".$this->getID());
-		
+
 		if (!$withDeleted)
 		{
 			$query->where("comment_deleted IS NULL");
 		}
-			
+		if ($approvedOnly)
+		{
+			$query->where("comment_approved IS NOT NULL");
+		}
+		
 		return $query;
 	}
 	
