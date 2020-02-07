@@ -5,6 +5,7 @@ use GDO\Core\GDO;
 use GDO\Table\MethodQueryCards;
 use GDO\Util\Common;
 use GDO\Table\GDT_List;
+use GDO\Core\GDT_Response;
 
 abstract class Comments_List extends MethodQueryCards
 {
@@ -34,6 +35,9 @@ abstract class Comments_List extends MethodQueryCards
 		return $query->fetchTable(GDO_Comment::table());
 	}
 	
+	/**
+	 * @return GDT_Response
+	 */
 	public function execute()
 	{
 		return $this->object->responseCard()->add(parent::execute());

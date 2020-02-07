@@ -14,6 +14,7 @@ use GDO\Date\Time;
 use GDO\Mail\Mail;
 use GDO\Core\GDT_Template;
 use GDO\Core\GDT_Hook;
+use GDO\Captcha\GDT_Captcha;
 
 abstract class Comments_Write extends MethodForm
 {
@@ -38,6 +39,16 @@ abstract class Comments_Write extends MethodForm
 	{
 		return $this->gdoCommentsTable()->canAddComment($user);
 	}
+
+	public function isApprovalRequired()
+	{
+		return Module_Comment::instance()->cfgApproval();
+	}
+	
+	public function isCaptchaRequired()
+	{
+		return Module_Comment::instance()->cfgCaptcha();
+	}
 	
 	public function createForm(GDT_Form $form)
 	{
@@ -48,6 +59,15 @@ abstract class Comments_Write extends MethodForm
 		{
 			$form->addField($gdo->gdoColumn('comment_file'));
 		}
+		
+		if ($this->isCaptchaRequired())
+		{
+			if (module_enabled('Captcha'))
+			{
+				$form->addField(GDT_Captcha::make());
+			}
+		}
+		
 		$form->addFields(array(
 			GDT_Submit::make(),
 			GDT_AntiCSRF::make(),
