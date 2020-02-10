@@ -9,6 +9,7 @@ use GDO\Form\GDT_Submit;
 use GDO\Form\MethodForm;
 use GDO\User\GDO_User;
 use GDO\Util\Common;
+use GDO\DB\GDT_String;
 use GDO\Date\Time;
 use GDO\Core\Website;
 use GDO\UI\GDT_Redirect;
@@ -25,6 +26,13 @@ use GDO\Form\GDT_DeleteButton;
  */
 class Edit extends MethodForm
 {
+	public function gdoParameters()
+	{
+		return array(
+			GDT_String::make('id')->notNull(),
+		);
+	}
+	
 	/**
 	 * @var GDO_Comment
 	 */

@@ -4,6 +4,7 @@ namespace GDO\Comment\Method;
 use GDO\Comment\GDO_Comment;
 use GDO\Core\GDT_Template;
 use GDO\Core\Method;
+use GDO\DB\GDT_String;
 use GDO\Date\Time;
 use GDO\User\GDO_User;
 use GDO\Util\Common;
@@ -16,6 +17,13 @@ use GDO\Core\GDT_Hook;
  */
 final class Delete extends Method
 {
+	public function gdoParameters()
+	{
+		return array(
+			GDT_String::make('id')->notNull(),
+		);
+	}
+	
 	public function execute()
 	{
 		$comment = GDO_Comment::table()->find(Common::getRequestString('id'));

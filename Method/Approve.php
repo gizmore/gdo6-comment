@@ -8,6 +8,7 @@ use GDO\Date\Time;
 use GDO\User\GDO_User;
 use GDO\Mail\Mail;
 use GDO\Core\GDT_Hook;
+use GDO\DB\GDT_String;
 /**
  * Comment attachment download.
  * @author gizmore
@@ -15,6 +16,13 @@ use GDO\Core\GDT_Hook;
  */
 final class Approve extends Method
 {
+	public function gdoParameters()
+	{
+		return array(
+			GDT_String::make('file')->notNull(),
+		);
+	}
+	
 	public function execute()
 	{
 		$comment = GDO_Comment::table()->find(Common::getRequestString('id'));
