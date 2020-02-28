@@ -9,6 +9,8 @@ use GDO\Core\GDT_Response;
 
 abstract class Comments_List extends MethodQueryCards
 {
+	public function showInSitemap() { return false; }
+	
 	/**
 	 * @return GDO_CommentTable
 	 */
