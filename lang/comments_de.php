@@ -22,4 +22,7 @@ return array(
 'cfg_comment_approval_member' => 'Email approval for members?',
 'cfg_comment_captcha_guest' => 'Captcha for guests?',
 'cfg_comment_captcha_member' => 'Captcha for members?',
+
+'mdescr_comment_admin' => 'Kommentare administrieren',
+	
 );
