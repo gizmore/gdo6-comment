@@ -96,7 +96,9 @@ abstract class Comments_Write extends MethodForm
 	
 	public function successMessage()
 	{
-		return $this->message('msg_comment_added');
+	    return Module_Comment::instance()->cfgApproval() ? 
+	    $this->message('msg_comment_added_approval') :
+	    $this->message('msg_comment_added');
 	}
 	
 	public function formValidated(GDT_Form $form)

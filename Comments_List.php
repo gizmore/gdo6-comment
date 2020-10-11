@@ -48,7 +48,7 @@ abstract class Comments_List extends MethodQueryCards
 	public function gdoDecorateList(GDT_List $list)
 	{
 		$count = $this->object->getCommentCount();
-		$list->title(t('list_comments', [sitename(), $count]));
+		$list->title(t('list_comments', [$this->object->displayName(), $count]));
 	}
 
 }

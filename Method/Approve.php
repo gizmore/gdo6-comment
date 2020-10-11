@@ -30,7 +30,7 @@ final class Approve extends Method
 		{
 			return $this->error('err_comment_already_approved');
 		}
-		if ($comment->gdoHashcode() !== Common::getRequestString(''))
+		if ($comment->gdoHashcode() !== Common::getRequestString('token'))
 		{
 			return $this->error('err_token');
 		}
