@@ -36,19 +36,24 @@ final class Delete extends Method
 			return $this->error('err_token');
 		}
 		
-		$comment->saveVars(array(
-			'comment_deleted' => Time::getDate(),
-			'comment_deletor' => GDO_User::current()->getID(),
-		));
-		
-		$this->sendEmail($comment);
-		
-		GDT_Hook::callWithIPC('CommentDeleted', $comment);
-		
+		$this->deleteComment($comment);
+
 		return $this->message('msg_comment_deleted');
 	}
 	
-	public function sendEmail(GDO_Comment $comment)
+	public function deleteComment(GDO_Comment $comment)
+	{
+	    $comment->saveVars(array(
+	        'comment_deleted' => Time::getDate(),
+	        'comment_deletor' => GDO_User::current()->getID(),
+	    ));
+	    
+	    $this->sendEmail($comment);
+	    
+	    GDT_Hook::callWithIPC('CommentDeleted', $comment);
+	}
+	
+	private function sendEmail(GDO_Comment $comment)
 	{
 		foreach (GDO_User::staff() as $user)
 		{

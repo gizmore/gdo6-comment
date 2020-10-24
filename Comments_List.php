@@ -6,9 +6,24 @@ use GDO\Table\MethodQueryCards;
 use GDO\Util\Common;
 use GDO\Table\GDT_List;
 use GDO\Core\GDT_Response;
+use GDO\User\GDO_Session;
 
 abstract class Comments_List extends MethodQueryCards
 {
+    const LAST_LIST_KEY = 'comments_list_last';
+    
+    public function setLastList()
+    {
+        GDO_Session::set(self::LAST_LIST_KEY, $_SERVER['REQUEST_URI']);
+    }
+    
+    public function getLastList()
+    {
+        return GDO_Session::set(self::LAST_LIST_KEY);
+    }
+        
+    
+    
 	public function showInSitemap() { return false; }
 	
 	/**
@@ -31,7 +46,9 @@ abstract class Comments_List extends MethodQueryCards
 	
 	public function gdoQuery()
 	{
-		$query = $this->gdoTable()->select('gdo_comment.*')->where("comment_object=".$this->object->getID());
+		$query = $this->gdoTable()->select('gdo_comment.*')->
+		  where("comment_deleted is NULL")->
+		  where("comment_object=".$this->object->getID());
 		$query->joinObject('comment_id');
 		$query->where("comment_approved IS NOT NULL");
 		return $query->fetchTable(GDO_Comment::table());

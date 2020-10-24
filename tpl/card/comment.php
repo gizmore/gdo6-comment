@@ -3,17 +3,17 @@ use GDO\Comment\GDO_Comment;
 use GDO\UI\GDT_EditButton;
 use GDO\User\GDO_User;
 use GDO\UI\GDT_Card;
+use GDO\UI\GDT_HTML;
 
-$gdo instanceof GDO_Comment;
+/** @var $gdo GDO_Comment **/
 $user = GDO_User::current();
 
 $card = GDT_Card::make()->gdo($gdo);
 $card->withCreator();
-$card->title($gdo->getCreator()->displayNameLabel());
-$card->subtitle(tt($gdo->getCreateDate()));
+$card->withCreated();
 
 $card->addFields(array(
-	$gdo->gdoColumn('comment_message'),
+	GDT_HTML::make('comment_message')->html($gdo->getMessage()),
 ));
 
 if ($gdo->hasFile())

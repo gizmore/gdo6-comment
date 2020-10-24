@@ -33,6 +33,26 @@ class Edit extends MethodForm
 		);
 	}
 	
+	public function execute()
+	{
+	    if (isset($_POST['delete']))
+	    {
+	        if ($this->comment->canEdit(GDO_User::current()))
+	        {
+	            $this->comment->delete();
+    	        return
+        	        $this->message('msg_crud_deleted', [$this->comment->gdoHumanName()])->
+        	        add($this->redirectToList());
+	        }
+	    }
+	    return parent::execute();
+	}
+	
+	private function redirectToList()
+	{
+	    
+	}
+	
 	/**
 	 * @var GDO_Comment
 	 */
@@ -42,6 +62,10 @@ class Edit extends MethodForm
 	{
 		$user = GDO_User::current();
 		$this->comment = GDO_Comment::table()->find(Common::getRequestString('id'));
+		if ($this->comment->isDeleted())
+		{
+		    throw new GDOError('err_is_deleted');
+		}
 		if (!$this->comment->canEdit($user))
 		{
 			throw new GDOError('err_no_permission');
@@ -50,7 +74,14 @@ class Edit extends MethodForm
 	
 	public function afterExecute()
 	{
-		return GDT_Response::makeWithHTML($this->comment->renderCard());
+	    if (!$this->comment->isDeleted())
+	    {
+	        return GDT_Response::makeWithHTML($this->comment->renderCard());
+	    }
+	    else
+	    {
+	        return Website::redirectBack(6);
+	    }
 	}
 	
 	public function createForm(GDT_Form $form)

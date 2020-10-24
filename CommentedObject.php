@@ -29,8 +29,11 @@ trait CommentedObject
 //	 public function gdoCommentTable() { return LUP_RoomComments::table(); } # Really abstract
 //	 public function gdoCommentsEnabled() { return true; } # default true would be ok
 //	 public function gdoCanComment(GDO_User $user) { return true; } default true would be ok
+    public function gdoCommentHrefEdit() { return href('Comment', 'Edit'); }
 	##########################################
-	/**
+
+    
+    /**
 	 * Get the number of comments
 	 * @return number
 	 */
@@ -105,5 +108,6 @@ trait CommentedObject
 	{
 		return $this->queryUserComments($user)->first()->exec()->fetchObject();
 	}
+	
 
 }
