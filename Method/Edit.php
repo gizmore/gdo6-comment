@@ -35,7 +35,7 @@ class Edit extends MethodForm
 	
 	public function execute()
 	{
-	    if (isset($_POST['delete']))
+	    if (isset($_REQUEST['delete']))
 	    {
 	        if ($this->comment->canEdit(GDO_User::current()))
 	        {
