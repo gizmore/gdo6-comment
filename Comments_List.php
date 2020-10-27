@@ -22,8 +22,6 @@ abstract class Comments_List extends MethodQueryCards
         return GDO_Session::set(self::LAST_LIST_KEY);
     }
         
-    
-    
 	public function showInSitemap() { return false; }
 	
 	/**
