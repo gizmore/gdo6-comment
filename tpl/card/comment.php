@@ -9,7 +9,7 @@ use GDO\UI\GDT_HTML;
 $user = GDO_User::current();
 
 $card = GDT_Card::make()->gdo($gdo);
-$card->titleCreation();
+$card->creatorHeader();
 $card->addFields(array(
 	GDT_HTML::make('comment_message')->html($gdo->getMessage()),
 ));
