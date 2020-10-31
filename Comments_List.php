@@ -6,7 +6,7 @@ use GDO\Table\MethodQueryCards;
 use GDO\Util\Common;
 use GDO\Table\GDT_List;
 use GDO\Core\GDT_Response;
-use GDO\User\GDO_Session;
+use GDO\Session\GDO_Session;
 
 abstract class Comments_List extends MethodQueryCards
 {
