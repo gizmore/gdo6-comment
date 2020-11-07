@@ -97,8 +97,8 @@ abstract class Comments_Write extends MethodForm
 	public function successMessage()
 	{
 	    return Module_Comment::instance()->cfgApproval() ? 
-	    $this->message('msg_comment_added_approval') :
-	    $this->message('msg_comment_added');
+	    Website::redirectMessage('msg_comment_added_approval', null, $this->hrefList()) :
+	    Website::redirectMessage('msg_comment_added', null, $this->hrefList());
 	}
 	
 	public function formValidated(GDT_Form $form)
@@ -140,12 +140,7 @@ abstract class Comments_Write extends MethodForm
 			}
 		}
 		
-		$response = $this->successMessage();
-		if (!Application::instance()->isAjax())
-		{
-			$response->add(Website::redirectMessage($this->hrefList()));
-		}
-		return $response;
+		$this->successMessage();
 	}
 	
 	private function sendEmail(GDO_Comment $comment)
