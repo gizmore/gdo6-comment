@@ -19,9 +19,9 @@ final class Module_Comment extends GDO_Module
 	##############
 	public $module_priority = 30;
 	public function getDependencies() { return ['Vote', 'File']; }
-	public function getClasses() { return ['GDO\Comment\GDO_Comment', 'GDO\Comment\GDO_CommentLike']; }
+	public function getClasses() { return [GDO_Comment::class, GDO_CommentLike::class]; }
 	public function onLoadLanguage() { $this->loadLanguage('lang/comments'); }
-	public function href_administrate_module()  { return href('Comment', 'Admin'); }
+	public function href_administrate_module()  { return href('Comment', 'Admin', 'File'); }
 	
 	##############
 	### Config ###
