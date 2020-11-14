@@ -42,7 +42,7 @@ abstract class Comments_List extends MethodQueryCards
 		$this->object = $this->gdoCommentsTable()->gdoCommentedObjectTable()->find(Common::getRequestString('id'));
 	}
 	
-	public function gdoQuery()
+	public function getQuery()
 	{
 		$query = $this->gdoTable()->select('gdo_comment.*')->
 		  where("comment_deleted is NULL")->
