@@ -23,7 +23,7 @@ final class Admin extends MethodQueryTable
 	{
 		return array_merge(array(
 			GDT_EditButton::make(),
-		), parent::getHeaders());
+		), parent::gdoHeaders());
 	}
 	
 	public function getQuery()
