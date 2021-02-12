@@ -69,9 +69,9 @@ abstract class Comments_Write extends MethodForm
 		}
 		
 		$form->addFields(array(
-			GDT_Submit::make(),
 			GDT_AntiCSRF::make(),
 		));
+		$form->actions()->addField(GDT_Submit::make());
 		
 		if (1 === $this->gdoCommentsTable()->gdoMaxComments(GDO_User::current()))
 		{

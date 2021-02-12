@@ -28,9 +28,9 @@ class Edit extends MethodForm
 {
 	public function gdoParameters()
 	{
-		return array(
+		return [
 			GDT_String::make('id')->notNull(),
-		);
+		];
 	}
 	
 	public function execute()
@@ -86,19 +86,21 @@ class Edit extends MethodForm
 	
 	public function createForm(GDT_Form $form)
 	{
-		$form->addFields(array(
+		$form->addFields([
 // 			$this->comment->gdoColumn('comment_title'),
 			$this->comment->gdoColumn('comment_message'),
 			$this->comment->gdoColumn('comment_file'),
 			$this->comment->gdoColumn('comment_top'),
 			GDT_AntiCSRF::make(),
+		]);
+		$form->actions()->addFields([
 			GDT_Submit::make(),
 			GDT_DeleteButton::make(),
-		));
+		]);
 		
 		if (!$this->comment->isApproved())
 		{
-			$form->addField(GDT_Submit::make('approve'));
+			$form->actions()->addField(GDT_Submit::make('approve'));
 		}
 		
 		$form->withGDOValuesFrom($this->comment);
