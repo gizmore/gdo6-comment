@@ -53,7 +53,7 @@ final class Delete extends Method
 	    GDT_Hook::callWithIPC('CommentDeleted', $comment);
 	}
 	
-	private function sendEmail(GDO_Comment $comment)
+	public function sendEmail(GDO_Comment $comment)
 	{
 		foreach (GDO_User::staff() as $user)
 		{
