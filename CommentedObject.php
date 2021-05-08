@@ -8,10 +8,10 @@ use GDO\User\GDO_User;
  * To make an object commented, follow these steps:
  * 
  * 1. Add a new DBTable/GDO extending CommentsTable
- *	This table has to return the commented object table in gdoCommentObjectTable() – e.g. GWF_News::table()
+ *	This table has to return the commented object table in gdoCommentObjectTable() – e.g. GDO_News::table()
  *	
  * 2. Add this trait to your commented object.
- *	The commented object has to return your new DBTable in gdoCommentTable() – e.g. GWF_NewsComments::table()
+ *	The commented object has to return your new DBTable in gdoCommentTable() – e.g. GDO_NewsComments::table()
  *
  * Your object is than able to easily add comments to the Comment table, joined via your new CommentsTable table.
  * All relations have foreign keys, as usual.

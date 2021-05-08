@@ -64,7 +64,7 @@ final class Approve extends Method
 			'comment' => $comment,
 		);
 		$mail->setBody(GDT_Template::phpUser($user, 'Comment', 'mail/approved_comment.php', $tVars));
-		$mail->setSender(GWF_BOT_EMAIL);
+		$mail->setSender(GDO_BOT_EMAIL);
 		$mail->sendToUser($user);
 	}
 }
