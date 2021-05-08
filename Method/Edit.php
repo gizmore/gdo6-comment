@@ -109,7 +109,7 @@ class Edit extends MethodForm
 	public function formValidated(GDT_Form $form)
 	{
 		$this->comment->saveVars($form->getFormData());
-		return $this->message('msg_comment_edited')->add($this->renderPage());
+		return $this->message('msg_comment_edited')->addField($this->renderPage());
 	}
 	
 	public function onSubmit_delete(GDT_Form $form)
@@ -119,7 +119,7 @@ class Edit extends MethodForm
 			$file->delete();
 		}
 		$this->comment->delete();
-		return $this->message('msg_comment_deleted')->add(GDT_Response::makeWith(GDT_Redirect::make()->href($this->hrefBack())));
+		return $this->message('msg_comment_deleted')->addField(GDT_Response::makeWith(GDT_Redirect::make()->href($this->hrefBack())));
 	}
 	
 	public function hrefBack()
@@ -142,6 +142,6 @@ class Edit extends MethodForm
 		Approve::make()->sendEmail($this->comment);
 		
 		Website::redirect(href('Comment', 'Admin', 12));
-		return $this->message('msg_comment_approved')->add($this->renderPage());
+		return $this->message('msg_comment_approved')->addField($this->renderPage());
 	}
 }

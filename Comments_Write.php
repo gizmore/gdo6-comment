@@ -91,7 +91,7 @@ abstract class Comments_Write extends MethodForm
 	public function execute()
 	{
 		$response = parent::execute();
-		return $this->object->responseCard()->add($response);
+		return $this->object->responseCard()->addField($response);
 	}
 	
 	public function successMessage()

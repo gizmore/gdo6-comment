@@ -57,7 +57,7 @@ abstract class Comments_List extends MethodQueryCards
 	 */
 	public function execute()
 	{
-		return $this->object->responseCard()->add(parent::execute());
+		return $this->object->responseCard()->addField(parent::execute());
 	}
 
 	public function gdoDecorateList(GDT_List $list)
