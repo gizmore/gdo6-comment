@@ -42,7 +42,7 @@ class Edit extends MethodForm
 	            $this->comment->delete();
     	        return
         	        $this->message('msg_crud_deleted', [$this->comment->gdoHumanName()])->
-        	        add($this->redirectToList());
+        	        addField($this->redirectToList());
 	        }
 	    }
 	    return parent::execute();
