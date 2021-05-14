@@ -11,7 +11,7 @@ $user = GDO_User::current();
 $card = GDT_Card::make()->gdo($gdo);
 $card->creatorHeader();
 $card->addFields(array(
-	GDT_HTML::make('comment_message')->html($gdo->getMessage()),
+	GDT_HTML::make('comment_message')->html($gdo->displayMessage()),
 ));
 
 if ($gdo->hasFile())
