@@ -5,7 +5,6 @@ use GDO\Comment\GDO_Comment;
 use GDO\Core\GDT_Template;
 use GDO\Core\Method;
 use GDO\DB\GDT_String;
-use GDO\Date\Time;
 use GDO\User\GDO_User;
 use GDO\Util\Common;
 use GDO\Mail\Mail;
@@ -43,10 +42,7 @@ final class Delete extends Method
 	
 	public function deleteComment(GDO_Comment $comment)
 	{
-	    $comment->saveVars(array(
-	        'comment_deleted' => Time::getDate(),
-	        'comment_deletor' => GDO_User::current()->getID(),
-	    ));
+	    $comment->markDeleted();
 	    
 	    $this->sendEmail($comment);
 	    

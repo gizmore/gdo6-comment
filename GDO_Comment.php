@@ -114,11 +114,4 @@ final class GDO_Comment extends GDO
 		return url('Comment', 'Delete', '&id='.$this->getID().'&token='.$this->gdoHashcode());
 	}
 	
-	public function delete()
-	{
-		return $this->saveVars(array(
-			'comment_deleted' => Time::getDate(),
-			'comment_deletor' => GDO_User::current()->getID(),
-		));
-	}
 }

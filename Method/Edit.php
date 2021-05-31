@@ -118,7 +118,7 @@ class Edit extends MethodForm
 		{
 			$file->delete();
 		}
-		$this->comment->delete();
+		$this->comment->markDeleted();
 		return $this->message('msg_comment_deleted')->addField(GDT_Response::makeWith(GDT_Redirect::make()->href($this->hrefBack())));
 	}
 	

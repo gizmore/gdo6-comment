@@ -28,7 +28,7 @@ final class Admin extends MethodQueryTable
 	
 	public function getQuery()
 	{
-		return GDO_Comment::table()->select()->orderDESC('comment_created');
+		return GDO_Comment::table()->select()->order('comment_created DESC');
 	}
 
 }
