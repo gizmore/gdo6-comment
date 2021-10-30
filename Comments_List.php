@@ -7,6 +7,8 @@ use GDO\Util\Common;
 use GDO\Table\GDT_List;
 use GDO\Core\GDT_Response;
 use GDO\Session\GDO_Session;
+use GDO\Table\GDT_Table;
+use GDO\Core\Website;
 
 abstract class Comments_List extends MethodQueryCards
 {
@@ -20,6 +22,13 @@ abstract class Comments_List extends MethodQueryCards
     public function getLastList()
     {
         return GDO_Session::set(self::LAST_LIST_KEY);
+    }
+    
+    public function setupTitle(GDT_Table $table)
+    {
+    	$gdoName = $this->gdoCommentsTable()->gdoHumanName();
+    	Website::setTitle(t('ft_list_comments', [$gdoName]));
+    	$table->title('list_comments', [$table->countItems]);
     }
         
 	public function showInSitemap() { return false; }

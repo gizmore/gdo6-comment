@@ -28,5 +28,6 @@ return array(
 'cfg_comment_captcha_member' => 'Captcha for members?',
 
 'mdescr_comment_admin' => 'Manage comments',
-	
+
+'ft_list_comments' => 'Comments on %s',
 );
