@@ -9,7 +9,6 @@ use GDO\Form\GDT_Submit;
 use GDO\Form\MethodForm;
 use GDO\User\GDO_User;
 use GDO\Util\Common;
-use GDO\Core\Application;
 use GDO\Date\Time;
 use GDO\Mail\Mail;
 use GDO\Core\GDT_Template;
@@ -133,7 +132,7 @@ abstract class Comments_Write extends MethodForm
 				$this->sendEmail($comment);
 			}
 			
-			GDT_Hook::callWithIPC('CommentaAdded', $comment);
+			GDT_Hook::callWithIPC('CommentAdded', $comment);
 			if (!$approval)
 			{
 				GDT_Hook::callWithIPC('CommentApproved', $comment);
