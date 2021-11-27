@@ -48,6 +48,7 @@ abstract class Comments_List extends MethodQueryCards
 	
 	public function init()
 	{
+		parent::init();
 		$this->object = $this->gdoCommentsTable()->gdoCommentedObjectTable()->find(Common::getRequestString('id'));
 	}
 	
