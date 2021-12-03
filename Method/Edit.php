@@ -60,7 +60,7 @@ class Edit extends MethodForm
 	 */
 	protected $comment;
 	
-	public function init()
+	public function onInit()
 	{
 		$user = GDO_User::current();
 		$this->comment = GDO_Comment::table()->find(Common::getRequestString('id'));

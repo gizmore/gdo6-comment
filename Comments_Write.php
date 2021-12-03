@@ -78,7 +78,7 @@ abstract class Comments_Write extends MethodForm
 		}
 	}
 	
-	public function init()
+	public function onInit()
 	{
 		$this->object = $this->gdoCommentsTable()->gdoCommentedObjectTable()->find(Common::getRequestString('id'));
 		if (1 === $this->gdoCommentsTable()->gdoMaxComments(GDO_User::current()))
