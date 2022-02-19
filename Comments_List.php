@@ -16,7 +16,7 @@ abstract class Comments_List extends MethodQueryCards
     
     public function setLastList()
     {
-        GDO_Session::set(self::LAST_LIST_KEY, $_SERVER['REQUEST_URI']);
+        GDO_Session::set(self::LAST_LIST_KEY, urldecode($_SERVER['REQUEST_URI']));
     }
     
     public function getLastList()
